@@ -2,12 +2,13 @@
 namespace Application\Controllers;
 
 use Absoft\Line\Core\Modeling\Controller;
+use Application\Models\UsersModel;
 
 class UsersController extends Controller{
 
-    private function show(){
-        //TODO: here write showing codes to be Executed
-        return "";
+    function show(){
+        $model = new UsersModel();
+        return $this->json($model->getUsers());
     }
     
     private function view($request){
@@ -15,9 +16,10 @@ class UsersController extends Controller{
         return "";
     }
 
-    private function save($request){
-        //TODO: Here write save codes to be Executed
-        return "";
+    function save($request){
+        $model = new UsersModel();
+        return $this->json($model->createUser($request["first"], $request["middle"], $request["last"], $request["department"], $request["email"], $request["role"]));
+
     }
     
     public function update($request){

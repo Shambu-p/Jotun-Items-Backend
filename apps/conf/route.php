@@ -6,6 +6,7 @@ use Application\Controllers\CategoriesController;
 use Application\Controllers\DepartmentsController;
 use Application\Controllers\DevicesController;
 use Application\Controllers\TestController;
+use Application\Controllers\UsersController;
 
 
 //Administration::routes();
@@ -26,6 +27,9 @@ Route::get("/api/devices", [new DevicesController(), 'show']);
 Route::post("/api/devices/add", [new DevicesController(), 'save']);
 Route::post("/api/devices/edit", [new DevicesController(), 'update']);
 Route::post("/api/device", [new DevicesController(), 'view']);
+
+Route::get("/api/users", [new UsersController(), 'show']);
+Route::post("/api/users/add", [new UsersController(), 'save']);
 
 Route::get("/api/categories", [new CategoriesController(), 'show']);
 Route::post("/api/categories/add", [new CategoriesController(), 'save']);

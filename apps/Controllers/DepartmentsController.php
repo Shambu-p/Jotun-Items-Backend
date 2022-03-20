@@ -11,10 +11,7 @@ class DepartmentsController extends Controller{
         return $this->json($model->getDepartments());
     }
     
-    private function view($request){
-        //TODO: here write viewing codes to be Executed
-        return "";
-    }
+//    private function view($request){}
 
     function save($request){
         $model = new DepartmentsModel();
