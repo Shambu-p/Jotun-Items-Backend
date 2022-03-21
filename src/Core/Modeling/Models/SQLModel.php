@@ -107,7 +107,7 @@ class SQLModel{
         $extra = [];
         $count = 0;
 
-        foreach(array_merge($this->MAINS, $this->HIDDEN) as $key => $val){
+        foreach(array_merge($this->MAINS, $this->HIDDEN) as $key){
 
             if(isset($search_array[$key]) && $key != ":join"){
 
@@ -174,7 +174,7 @@ class SQLModel{
 
         if(isset($other["order_by"])){
 
-            if(isset($other["order_by"]["att"]) && isset($this->MAINS[$other["order_by"]["att"]])){
+            if(isset($other["order_by"]["att"]) && in_array($other["order_by"]["att"], $this->MAINS)){
 
                 if(isset($other["order_by"]["det"]) && $other["order_by"]["det"] == "1" || $other["order_by"]["det"] == "0"){
 
@@ -226,15 +226,15 @@ class SQLModel{
 
             if($join[":on"] && $join[":parent"]){
 
-                if(isset($model->MAINS[$join[":on"]])){
+                if(in_array($join[":on"], $model->MAINS)){
 
-                    if(isset($this->MAINS[$join[":parent"]])){
+                    if(in_array($join[":parent"], $this->MAINS)){
 
                         $return["table"] = $name;
                         $return["as"] = $representation = $join[":as"] ? $join[":as"] : null;
                         $return["on"] = $this->TABLE_NAME.".".$join[":parent"]." = ".($representation ? $representation : $model->TABLE_NAME).".".$join[":on"];
 
-                        foreach($model->MAINS as $key => $value){
+                        foreach($model->MAINS as $key){
 
                             if(isset($join[$key])) {
 

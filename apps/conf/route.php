@@ -5,6 +5,7 @@ use Absoft\Line\Core\HTTP\Route;
 use Application\Controllers\CategoriesController;
 use Application\Controllers\DepartmentsController;
 use Application\Controllers\DevicesController;
+use Application\Controllers\ReceiveController;
 use Application\Controllers\TestController;
 use Application\Controllers\UsersController;
 
@@ -30,6 +31,11 @@ Route::post("/api/device", [new DevicesController(), 'view']);
 
 Route::get("/api/users", [new UsersController(), 'show']);
 Route::post("/api/users/add", [new UsersController(), 'save']);
+Route::post("/api/user/view", [new UsersController(), 'view']);
+Route::post("/api/users/edit", [new UsersController(), 'update']);
+
+Route::post("/api/receive/new", [new ReceiveController(), 'save']);
+Route::get("/api/receives", [new ReceiveController(), 'show']);
 
 Route::get("/api/categories", [new CategoriesController(), 'show']);
 Route::post("/api/categories/add", [new CategoriesController(), 'save']);

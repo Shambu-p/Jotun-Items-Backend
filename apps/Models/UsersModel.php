@@ -116,14 +116,13 @@ class UsersModel extends Model{
      * @param $department
      * @param $email
      * @return array|mixed
-     * @throws OperationFailed
      */
     function change($id, $first, $middle, $last, $department, $email){
 
         $result = $query = $this->findRecord($id);
 
         if(sizeof($result) == 0){
-            throw new OperationFailed("User not found");
+            trigger_error("user not found!", E_USER_ERROR);
         }
 
         $query = $this->updateRecord();

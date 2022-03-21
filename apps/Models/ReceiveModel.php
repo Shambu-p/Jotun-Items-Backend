@@ -32,9 +32,6 @@ class ReceiveModel extends Model{
     /**
      * @param $device
      * @param $amount
-     * @throws DBConnectionError
-     * @throws ClassNotFound
-     * @throws OperationFailed
      */
     function newReceive($device, $amount){
 
@@ -42,9 +39,8 @@ class ReceiveModel extends Model{
         $result = $device_model->findRecord($device);
 
         if(!sizeof($result)){
-            throw new OperationFailed("cannot get device");
+            trigger_error("cannot get device", E_USER_ERROR);
         }
-
 
         $this->beginTransaction();
         $query = $this->addRecord();
@@ -64,7 +60,13 @@ class ReceiveModel extends Model{
             $this->rollback();
         }
 
-        $device_model->commit();
+        $this->commit();
+        return [
+            "id" => $this->lastInsertId(),
+            "device" => $device,
+            "amount" => $amount,
+            "date" => strtotime("now")
+        ];
 
     }
 
@@ -79,7 +81,7 @@ class ReceiveModel extends Model{
             "device" => "",
             "date" => "",
             "amount" => "",
-            "join" => [
+            ":join" => [
                 [
                     ":table" => "Devices",
                     ":on" => "id",
@@ -87,12 +89,9 @@ class ReceiveModel extends Model{
                     ":as" => "device",
 
                     "id" => "",
-                    "email" => "",
-                    "first" => "",
-                    "middle" => "",
-                    "last" => "",
-                    "role" => "",
-                    "department" => ""
+                    "name" => "",
+                    "type" => "",
+                    "amount" => ""
                 ]
             ]
         ]);

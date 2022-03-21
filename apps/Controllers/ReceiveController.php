@@ -1,23 +1,32 @@
 <?php
 namespace Application\Controllers;
 
+use Absoft\Line\Core\FaultHandling\Errors\DBConnectionError;
+use Absoft\Line\Core\FaultHandling\Exceptions\OperationFailed;
+use Absoft\Line\Core\HTTP\JSONResponse;
 use Absoft\Line\Core\Modeling\Controller;
+use Application\Models\ReceiveModel;
 
 class ReceiveController extends Controller{
 
-    private function show(){
-        //TODO: here write showing codes to be Executed
-        return "";
+    /**
+     * @return JSONResponse
+     * @throws DBConnectionError
+     * @throws OperationFailed
+     */
+    function show(){
+        $model = new ReceiveModel();
+        return $this->json($model->getReceived());
     }
     
-    private function view($request){
+    function view($request){
         //TODO: here write viewing codes to be Executed
         return "";
     }
 
-    private function save($request){
-        //TODO: Here write save codes to be Executed
-        return "";
+    function save($request){
+        $model = new ReceiveModel();
+        return $this->json($model->newReceive($request["device"], $request["amount"]));
     }
     
     public function update($request){
